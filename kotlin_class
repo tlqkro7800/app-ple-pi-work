@@ -1,0 +1,20 @@
+
+class DoYun {
+    fun doyun() {
+        println("게이")
+    }
+}
+
+class Jaehee {
+    fun jaehee() {
+        println("재히")
+    }
+}
+
+fun main() {
+    val doYun = DoYun()
+    val Jaehee = Jaehee()
+
+    doYun.doyun()
+    Jaehee.jaehee()
+}
