@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define Num 3
+
+void generateRandomNumber(int *number) {
+    int i, j;
+    srand(time(NULL));
+
+    for (i = 0; i < Num; i++) {
+        number[i] = rand() % 10;
+        for (j = 0; j < i; j++) {
+            if (number[i] == number[j]) {
+                i--;
+                break;
+            }
+        }
+    }
+}
+
+void checkGuess(int *answer, int *guess, int *strike, int *ball) {
+    int i, j;
+
+    *strike = *ball = 0;
+
+    for (i = 0; i < Num; i++) {
+        for (j = 0; j < Num; j++) {
+            if (guess[i] == answer[j]) {
+                if (i == j) {
+                    (*strike)++;
+                } else {
+                    (*ball)++;
+                }
+                break;
+            }
+        }
+    }
+}
+
+int main() {
+    int answer[Num];
+    int guess[Num];
+    int strike, ball;
+    int tries = 0;
+    int i;
+
+    generateRandomNumber(answer);
+
+    printf("숫자야구 게임을 시작합니다!\n");
+
+    do {
+        printf("\n%d번째 시도\n", ++tries);
+        printf("세 자리 숫자를 입력하세요: ");
+        scanf("%1d%1d%1d", &guess[0], &guess[1], &guess[2]);
+
+        checkGuess(answer, guess, &strike, &ball);
+        printf("스트라이크: %d, 볼: %d\n", strike, ball);
+    } while (strike != Num);
+
+    printf("\n축하합니다! 정답을 맞추셨습니다.\n");
+    printf("시도한 횟수: %d\n", tries);
+    printf("정답: ");
+    for (i = 0; i < Num; i++) {
+        printf("%d", answer[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
